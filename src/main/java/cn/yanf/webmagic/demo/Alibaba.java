@@ -72,7 +72,7 @@ public class Alibaba implements PageProcessor{
         }
         public static void main(String[] args) {
             Spider git=Spider.create(new cn.yanf.webmagic.demo.Alibaba()).
-                    addUrl("http://offer.alibaba.com/products/led.html").
+                    addUrl("http://offer.alibaba.com/products/"+args[0]+".html").
                     addPipeline(new ConsolePipeline()).addPipeline(new MongodbPipeline())
                     ;
             try {
