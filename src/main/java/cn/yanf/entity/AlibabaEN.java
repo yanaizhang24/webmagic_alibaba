@@ -1,6 +1,6 @@
 package cn.yanf.entity;
 
-import org.springframework.data.annotation.Id;
+
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Administrator on 2016/9/19 0019.
  */
 public class AlibabaEN extends TieBar implements Serializable{
-    @Id
+
     private String id;
     private String url;
     private String target;

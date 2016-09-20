@@ -1,11 +1,6 @@
 package cn.yanf.StringUtils;
 
 
-import cn.yanf.entity.Customer;
-
-import org.springframework.boot.CommandLineRunner;
-
-
 
 import java.io.*;
 import java.text.DateFormat;
@@ -17,16 +12,13 @@ import java.util.List;
  * Created by Administrator on 2016/8/30 0030.
  */
 
-public class SpringUtils implements Serializable,CommandLineRunner {
+public class SpringUtils implements Serializable {
     private static String message;
     public  static void getMessage (String message) throws Exception {
         SpringUtils.message=message;
     }
 
-    @Override
-    public void run(String... strings) throws Exception {
 
-    }
     public  static <T> boolean writeData(List<T> list,String fileName){
         Date date=new Date();
         DateFormat dateFormatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
