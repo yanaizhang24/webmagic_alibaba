@@ -42,6 +42,12 @@ public class AlibabaEN extends TieBar implements Serializable{
         this.target = target;
     }
 
+    public AlibabaEN(String id, String url, String target) {
+        this.id = id;
+        this.url = url;
+        this.target = target;
+    }
+
     @Override
     public String toString() {
         return "{" +

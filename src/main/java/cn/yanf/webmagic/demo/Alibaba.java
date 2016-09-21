@@ -24,12 +24,13 @@ import java.util.regex.Pattern;
 public class Alibaba implements PageProcessor{
 
 
-
+    private static int id=0;
     private Site site = Site.me().setRetryTimes(3).setSleepTime(500).addHeader("Referer","http://offer.alibaba.com");
     public void process(Page page) {
             List<AlibabaEN> list=new ArrayList<>() ;
             //site.getHeaders();
             //System.out.println(page.getHtml().toString());
+        //String noHtmlContent = content.replaceAll("<[^>]*>","");
             for(Selectable s : page.getHtml().xpath("//div[@class='item-main item-main-180 util-clearfix']").nodes()){
                 if(s.xpath("//span[@class='ico-narr']").nodes().size()>0){
                     int i =1;
@@ -38,7 +39,8 @@ public class Alibaba implements PageProcessor{
                         page.putField("page",page.getUrl());
                         page.putField("newTarget"+i,s.xpath("//div[@class='lwrap']/h2/a/@href"));
                         //page.putField("newTargetTitle"+i,s.xpath("//div[@class='lwrap']/h2/a/@href"));
-                        AlibabaEN al=new AlibabaEN(page.getUrl().toString(),s.xpath("//div[@class='lwrap']/h2/a/@href").toString());
+                        id++;
+                        AlibabaEN al=new AlibabaEN(new String(id+""),page.getUrl().toString(),s.xpath("//div[@class='lwrap']/h2/a/@href").toString());
                         list.add(al);
                     }
                 }
@@ -106,7 +108,9 @@ public class Alibaba implements PageProcessor{
                     e.printStackTrace();
                 }
                 git.thread(5).run();
+
             }
+
 
         }
     public  static  boolean startCheck(String reg,String string)
