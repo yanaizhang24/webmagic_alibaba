@@ -84,6 +84,10 @@ public class Alibaba implements PageProcessor{
             }
             String regex="[a-zA-Z0-9\\-_]*";
             for(int i=1;i<args.length;i++){
+                if("products".equals(args[i])){
+                    System.out.println("参数不可为products！");
+                    return;
+                }
                 if(!startCheck(regex,args[i])){
                     System.out.println(args[i]+"不符合要求");
                     System.out.println("请输入只包含数字字母和-_的参数！");
