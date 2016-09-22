@@ -1,0 +1,2 @@
+因为alibaba的分页相对链接为"products/xxx/x.html"标准的分页链接应该为"/products/xxx/x.html"，所以解析出现问题
+解析主要是java.net.url类的构造时。webmagic利用了java的url类构造，所以相关相对链接必然需要符合java规定。
