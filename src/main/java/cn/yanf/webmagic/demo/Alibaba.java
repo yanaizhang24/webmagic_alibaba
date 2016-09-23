@@ -5,6 +5,7 @@ import cn.yanf.entity.AlibabaEN;
 
 import cn.yanf.webmagic.piplline.MongodbPipeline;
 import jdk.nashorn.internal.runtime.regexp.joni.Matcher;
+import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -14,6 +15,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 import javax.management.JMException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -40,7 +42,10 @@ public class Alibaba implements PageProcessor{
                         page.putField("newTarget"+i,s.xpath("//div[@class='lwrap']/h2/a/@href"));
                         //page.putField("newTargetTitle"+i,s.xpath("//div[@class='lwrap']/h2/a/@href"));
                         id++;
-                        AlibabaEN al=new AlibabaEN(new String(id+""),page.getUrl().toString(),s.xpath("//div[@class='lwrap']/h2/a/@href").toString());
+                        AlibabaEN al=new AlibabaEN(new String(id+""),page.getUrl().toString(),
+                                //s.xpath("//div[@class='lwrap']/h2/a/@href").toString()
+                                s.xpath("//h3[@class='ellipsis']/a/@href").toString()
+                        );
                         list.add(al);
                     }
                 }
@@ -79,10 +84,22 @@ public class Alibaba implements PageProcessor{
             //System.out.println(args[1]);
             //System.out.println(args.length);
             if(args.length==0){
-                System.out.println("请输入相关参数");
-                return;
+                String fileName="reference.txt";
+                File file=new File(fileName);
+                if(file.exists())
+                {
+                    try {
+                        args=readFile(fileName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    System.out.println("未输入相关参数同时也未找到参数文件“reference.txt”!!");
+                    return;
+                }
+
             }
-            String regex="[a-zA-Z0-9\\-_]*";
+            String regex="[a-zA-Z0-9\\-_,]*";
             for(int i=1;i<args.length;i++){
                 if("products".equals(args[i])){
                     System.out.println("参数不可为products！");
@@ -90,7 +107,7 @@ public class Alibaba implements PageProcessor{
                 }
                 if(!startCheck(regex,args[i])){
                     System.out.println(args[i]+"不符合要求");
-                    System.out.println("请输入只包含数字字母和-_的参数！");
+                    System.out.println("请输入只包含数字字母和-_,的参数！");
                     return;
                 }
             }
@@ -126,6 +143,20 @@ public class Alibaba implements PageProcessor{
 
         tem=matcher.matches();
         return tem;
+    }
+    public static final String[] readFile(String filePath) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(filePath)));
+       List<String> args=new ArrayList<>();
+        int i=0;
+        for (String line = br.readLine(); line != null; line = br.readLine(),i++) {
+            if(StringUtils.isNotEmpty(line.trim())){
+                args.add(line.trim());
+            }
+        }
+
+        br.close();
+        return args.toArray(new String[]{});
     }
 
 }
