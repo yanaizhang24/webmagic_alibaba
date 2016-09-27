@@ -2,6 +2,8 @@ package cn.yanf.StringUtils;
 
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,5 +48,12 @@ public class SpringUtils implements Serializable {
             e.printStackTrace();
         }
         return false;
+    }
+    public static String trim(String str){
+        if(StringUtils.isNotEmpty(str)){
+            return str.trim();
+
+        }
+        return null;
     }
 }
