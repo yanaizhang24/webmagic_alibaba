@@ -2,7 +2,6 @@ package cn.yanf.webmagic.demo;
 
 import cn.yanf.StringUtils.SpringUtils;
 import cn.yanf.entity.TianYaTieZ;
-import cn.yanf.webmagic.piplline.MongodbPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -12,8 +11,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 import javax.management.JMException;
-import java.io.File;
-import java.io.IOException;
+
 
 /**
  * Created by Administrator on 2016/9/26 0026.
@@ -31,8 +29,8 @@ public class TianYa implements PageProcessor {
                 TianYaTieZ tianYaTieZ=new TianYaTieZ();
                 tianYaTieZ.setProperty(selectable.xpath("//span[@class='face']/@title").toString());
                 //如果后面有多个<b>，你可以用 //a/following-sibling::b来得到所有的b，或者用 //a/following-sibling::b[index] 来得到特定的。index从1开始
-                tianYaTieZ.setTitle(SpringUtils.trim(selectable.xpath("//td[@class='td-title faceblue']/a/text()").toString()));
-                tianYaTieZ.setUrl(SpringUtils.trim(selectable.xpath("//td[@class='td-title faceblue']/a/@href").toString()));
+                tianYaTieZ.setTitle(SpringUtils.trim(selectable.xpath("//td[@class='td-title']/a/text()").toString()));
+                tianYaTieZ.setUrl(SpringUtils.trim(selectable.xpath("//td[@class='td-title']/a/@href").toString()));
                 tianYaTieZ.setAuthor(SpringUtils.trim(selectable.xpath("//a[@class='author']/text()").toString()));
                 tianYaTieZ.setAuthor_url(SpringUtils.trim(selectable.xpath("//a[@class='author']/@href").toString()));
                 tianYaTieZ.setReadNum(SpringUtils.trim(selectable.xpath("/tr/td[3]/text()").toString()));

@@ -4,7 +4,6 @@ package cn.yanf.webmagic.demo;
 import cn.yanf.entity.AlibabaEN;
 
 import cn.yanf.webmagic.piplline.MongodbPipeline;
-import jdk.nashorn.internal.runtime.regexp.joni.Matcher;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
